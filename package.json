@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && npm run postbuild",
+    "postbuild": "cp dist/index.html dist/404.html",
+    "deploy": "git push origin main",
     "lint": "eslint .",
     "preview": "vite preview"
   },
