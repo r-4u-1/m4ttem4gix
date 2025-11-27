@@ -225,7 +225,7 @@ const MANUAL_TAILWIND_REPLACEMENT_CSS = `
 .section-full { grid-column:1; }
 @media (min-width:1024px){ .section-full { grid-column:1 / span 2; } }
 .section-inner-grid { display:grid; grid-template-columns:1fr; gap:2rem; }
-@media (min-width:768px){ .section-inner-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (min-width:768px){ .section-inner-grid { grid-template-columns:repeat(1,minmax(0,1fr)); } }
 .section-title { font-size:2.25rem; font-weight:800; margin-bottom:2rem; color:#2563eb; border-left:4px solid #2563eb; padding-left:1rem; }
 .rule-card, .formula-card { padding:1.5rem; border:1px solid #e5e7eb; border-radius:0.75rem; box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05); }
 .rule-card { background:#f3f4f6; display:flex; flex-direction:column; justify-content:center; }
@@ -235,7 +235,7 @@ const MANUAL_TAILWIND_REPLACEMENT_CSS = `
 .example-item { padding:.5rem; border-left:4px solid #22c55e; background:#ecfdf5; color:#15803d; font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace; font-size:1.125rem; border-radius:.125rem; }
 .quiz-section { background:#fff; padding:2rem; border-radius:1rem; box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04); margin-bottom:3rem; }
 .quiz-grid { display:grid; gap:2rem; grid-template-columns:minmax(0,1fr); }
-@media (min-width:768px){ .quiz-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (min-width:768px){ .quiz-grid { grid-template-columns:repeat(1,minmax(0,1fr)); } }
 .quiz-card { padding:1.25rem; border-radius:0.75rem; box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05); transition:all .15s ease; border:1px solid #e5e7eb; background:#ffffff; min-width:0; }
 .quiz-card--correct { background:#ecfdf5; border-color:#34d399; }
 .quiz-card--incorrect { background:#fef2f2; border-color:#f87171; }
@@ -548,7 +548,360 @@ const quizQuestions: QuizQuestion[] = [
   correctDisplay: '<mi>x</mi>',
   hint: 'Multiplikation av rötter: √x · √x = √(x·x) = √(x^2) = x.'
  },
+ // --- FÖRÄNDRINGSFAKTOR FRÅGOR (ID 7–14) - MathML i Hint ---
+ {
+    id: 17,
+    type: 'free-text',
+    questionMath: '<mtext>Vilken är förändringsfaktorn för en ökning med </mtext><mn>35</mn><mo>%</mo><mtext>?</mtext>',
+    correctAnswer: '1.35',
+    correctDisplay: '<mn>1</mn><mo>,</mo><mn>35</mn>',
+    hint: '<mtext>Ökning:</mtext><mo> </mo><mn>1</mn><mo>+</mo><mo>(</mo><mtext>procent i decimalform</mtext><mo>)</mo><mo>=</mo><mn>1</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>35</mn><mo>.</mo>',
+},
+{
+    id: 18,
+    type: 'free-text',
+    questionMath: '<mtext>Vilken är förändringsfaktorn om ett pris sänks med </mtext><mn>15</mn><mo>%</mo><mtext>?</mtext>',
+    correctAnswer: '0.85',
+    correctDisplay: '<mn>0</mn><mo>,</mo><mn>85</mn>',
+    hint: '<mtext>Minskning:</mtext><mo> </mo><mn>1</mn><mo>-</mo><mo>(</mo><mtext>procent i decimalform</mtext><mo>)</mo><mo>=</mo><mn>1</mn><mo>-</mo><mn>0</mn><mo>,</mo><mn>15</mn><mo>.</mo>',
+},
+{
+    id: 19,
+    type: 'free-text',
+    questionMath: '<mtext>Ett pris är</mtext><mo> </mo><mn>300</mn><mo> </mo><mtext>kr och höjs med</mtext><mo> </mo><mn>20</mn><mo>%</mo><mo>.</mo><mo> </mo><mtext>Vad är det nya priset?</mtext>',
+    correctAnswer: '360',
+    correctDisplay: '<mn>360</mn><mo> </mo><mtext>kr</mtext>',
+    hint: '<mtext>Använd F-faktorn</mtext><mo> </mo><mn>1</mn><mo>,</mo><mn>20</mn><mo>:</mo><mo> </mo><mn>300</mn><mo>·</mo><mn>1</mn><mo>,</mo><mn>20</mn><mo>.</mo>',
+},
+{
+    id: 20,
+    type: 'multiple-choice',
+    questionMath: '<mtext>En F-faktor på</mtext><mo> </mo><mn>0</mn><mo>,</mo><mn>98</mn><mo> </mo><mtext>motsvarar en:</mtext>',
+    options: [
+        { value: '2% ökning', label: '<mn>2</mn><mo>%</mo><mo> </mo><mtext>ökning</mtext>' },
+        { value: '2% minskning', label: '<mn>2</mn><mo>%</mo><mo> </mo><mtext>minskning</mtext>' }, // Korrekt
+        { value: '98% minskning', label: '<mn>98</mn><mo>%</mo><mo> </mo><mtext>minskning</mtext>' },
+    ],
+    correctAnswer: '2% minskning',
+    correctDisplay: '<mn>2</mn><mo>%</mo><mo> </mo><mtext>minskning</mtext>',
+    hint: '<mtext>Minskning:</mtext><mo> </mo><mn>1</mn><mo>-</mo><mn>0</mn><mo>,</mo><mn>98</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>02</mn><mo>.</mo><mo> </mo><mtext>Det motsvarar</mtext><mo> </mo><mn>2</mn><mo>%</mo><mo>.</mo>',
+},
+
+// AVANCERAD F-FAKTOR
+{
+    id: 21,
+    type: 'free-text',
+    questionMath: '<mtext>En aktie ökar först med</mtext><mo> </mo><mn>10</mn><mo>%</mo><mo> </mo><mtext>och sedan med</mtext><mo> </mo><mn>5</mn><mo>%</mo><mo>.</mo><mo> </mo><mtext>Vad är den totala F-faktorn?</mtext>',
+    correctAnswer: '1.155',
+    correctDisplay: '<mn>1</mn><mo>,</mo><mn>155</mn>',
+    hint: '<mtext>Multiplicera de enskilda F-faktorerna:</mtext><mo> </mo><mo>(</mo><mn>1</mn><mo>,</mo><mn>10</mn><mo>)</mo><mo>·</mo><mo>(</mo><mn>1</mn><mo>,</mo><mn>05</mn><mo>)</mo><mo>.</mo>',
+},
+{
+    id: 22,
+    type: 'free-text',
+    questionMath: '<mtext>En bil minskar i värde med</mtext><mo> </mo><mn>10</mn><mo>%</mo><mo> </mo><mtext>per år.</mtext><mo> </mo><mtext>Vad är den totala F-faktorn efter</mtext><mo> </mo><mn>3</mn><mo> </mo><mtext>år?</mtext>',
+    correctAnswer: '0.729',
+    correctDisplay: '<mn>0</mn><mo>,</mo><mn>729</mn>',
+    hint: '<mtext>Använd potenser:</mtext><mo> </mo><msup><mrow><mo>(</mo><mn>1</mn><mo>-</mo><mn>0</mn><mo>,</mo><mn>10</mn><mo>)</mo></mrow><mn>3</mn></msup><mo>.</mo>',
+},
+{
+    id: 23,
+    type: 'free-text',
+    questionMath: '<mtext>En vara kostar</mtext><mo> </mo><mn>440</mn><mo> </mo><mtext>kr efter en ökning med</mtext><mo> </mo><mn>10</mn><mo>%</mo><mo>.</mo><mo> </mo><mtext>Vad kostade varan ursprungligen (</mtext><mi>x</mi><mtext>)?</mtext>',
+    correctAnswer: '400',
+    correctDisplay: '<mn>400</mn><mo> </mo><mtext>kr</mtext>',
+    hint: '<mtext>Ställ upp ekvationen:</mtext><mo> </mo><mi>x</mi><mo>·</mo><mn>1</mn><mo>,</mo><mn>10</mn><mo>=</mo><mn>440</mn><mo>.</mo><mo> </mo><mtext>Lös sedan ut</mtext><mo> </mo><mi>x</mi><mo>.</mo>',
+},
+{
+    id: 24,
+    type: 'multiple-choice',
+    questionMath: '<mtext>En total F-faktor på</mtext><mo> </mo><mn>1</mn><mo>,</mo><mn>21</mn><mo> </mo><mtext>kan beskrivas som en total ökning med:</mtext>',
+    options: [
+        { value: '21%', label: '<mn>21</mn><mo>%</mo>' }, // Korrekt
+        { value: '121%', label: '<mn>121</mn><mo>%</mo>' },
+        { value: '1.21%', label: '<mn>1</mn><mo>,</mo><mn>21</mn><mo>%</mo>' },
+    ],
+    correctAnswer: '21%',
+    correctDisplay: '<mn>21</mn><mo>%</mo>',
+    hint: '<mtext>Total F-faktor</mtext><mo>-</mo><mn>1</mn><mo> </mo><mtext>ger ökningen i decimalform:</mtext><mo> </mo><mn>1</mn><mo>,</mo><mn>21</mn><mo>-</mo><mn>1</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>21</mn><mo>.</mo>',
+},
+{
+    id: 25,
+    type: 'free-text',
+    questionMath: '<msup><mn>3</mn><mn>4</mn></msup><mo>&sdot;</mo><msup><mn>3</mn><mn>5</mn></msup>',
+    correctAnswer: '3^9',
+    correctDisplay: '<msup><mn>3</mn><mn>9</mn></msup>',
+    hint: '<mtext>Använd multiplikationsregeln:</mtext><mo> </mo><mn>4</mn><mo>+</mo><mn>5</mn><mo>.</mo>',
+},
+{
+    id: 26,
+    type: 'free-text',
+    questionMath: '<mfrac><msup><mi>x</mi><mn>8</mn></msup><msup><mi>x</mi><mn>2</mn></msup></mfrac>',
+    correctAnswer: 'x^6',
+    correctDisplay: '<msup><mi>x</mi><mn>6</mn></msup>',
+    hint: '<mtext>Använd divisionsregeln:</mtext><mo> </mo><mn>8</mn><mo>-</mo><mn>2</mn><mo>.</mo>',
+},
+{
+    id: 27,
+    type: 'free-text',
+    questionMath: '<msup><mrow><mo>(</mo><msup><mn>5</mn><mn>2</mn></msup><mo>)</mo></mrow><mn>3</mn></msup>',
+    correctAnswer: '5^6',
+    correctDisplay: '<msup><mn>5</mn><mn>6</mn></msup>',
+    hint: '<mtext>Använd Potens av Potens-regeln:</mtext><mo> </mo><mn>2</mn><mo>·</mo><mn>3</mn><mo>.</mo>',
+},
+{
+    id: 28,
+    type: 'free-text',
+    questionMath: '<msup><mrow><mo>(</mo><mn>2</mn><mi>x</mi><mo>)</mo></mrow><mn>3</mn></msup>',
+    correctAnswer: '8x^3',
+    correctDisplay: '<mn>8</mn><msup><mi>x</mi><mn>3</mn></msup>',
+    hint: '<mtext>Höj upp både</mtext><mo> </mo><mn>2</mn><mo> </mo><mtext>och</mtext><mo> </mo><mi>x</mi><mo> </mo><mtext>till</mtext><mo> </mo><mn>3</mn><mo>.</mo><mo> </mo><msup><mn>2</mn><mn>3</mn></msup><mo>=</mo><mn>8</mn><mo>.</mo>',
+},
+
+// --- RÖTTER & BRÅKEXPONENTER (ID 29–30) ---
+{
+    id: 29,
+    type: 'free-text',
+    questionMath: '<msqrt><mn>49</mn></msqrt><mo>+</mo><msqrt><mn>16</mn></msqrt>',
+    correctAnswer: '11',
+    correctDisplay: '<mn>11</mn>',
+    hint: '<mtext>Beräkna rötterna separat:</mtext><mo> </mo><mn>7</mn><mo>+</mo><mn>4</mn><mo>.</mo>',
+},
+{
+    id: 30,
+    type: 'free-text',
+    questionMath: '<mroot><mn>27</mn><mn>3</mn></mroot><mo>·</mo><mn>2</mn>',
+    correctAnswer: '6',
+    correctDisplay: '<mn>6</mn>',
+    hint: '<mtext>Beräkna tredjeroten först:</mtext><mo> </mo><mn>3</mn><mo>·</mo><mn>2</mn><mo>.</mo>',
+},
+
+// --- GRUNDLÄGGANDE F-FAKTOR (ID 31–34) ---
+{
+    id: 31,
+    type: 'free-text',
+    questionMath: '<mtext>Vilken är förändringsfaktorn för en ökning med </mtext><mn>35</mn><mo>%</mo><mtext>?</mtext>',
+    correctAnswer: '1.35',
+    correctDisplay: '<mn>1</mn><mo>,</mo><mn>35</mn>',
+    hint: '<mtext>Ökning:</mtext><mo> </mo><mn>1</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>35</mn><mo>.</mo>',
+},
+{
+    id: 32,
+    type: 'free-text',
+    questionMath: '<mtext>Vilken är förändringsfaktorn om ett pris sänks med </mtext><mn>15</mn><mo>%</mo><mtext>?</mtext>',
+    correctAnswer: '0.85',
+    correctDisplay: '<mn>0</mn><mo>,</mo><mn>85</mn>',
+    hint: '<mtext>Minskning:</mtext><mo> </mo><mn>1</mn><mo>-</mo><mn>0</mn><mo>,</mo><mn>15</mn><mo>.</mo>',
+},
+{
+    id: 33,
+    type: 'free-text',
+    questionMath: '<mtext>Ett pris är</mtext><mo> </mo><mn>300</mn><mo> </mo><mtext>kr och höjs med</mtext><mo> </mo><mn>20</mn><mo>%</mo><mo>.</mo><mo> </mo><mtext>Vad är det nya priset?</mtext>',
+    correctAnswer: '360',
+    correctDisplay: '<mn>360</mn><mo> </mo><mtext>kr</mtext>',
+    hint: '<mtext>Använd F-faktorn</mtext><mo> </mo><mn>1</mn><mo>,</mo><mn>20</mn><mo>:</mo><mo> </mo><mn>300</mn><mo>·</mo><mn>1</mn><mo>,</mo><mn>20</mn><mo>.</mo>',
+},
+{
+    id: 34,
+    type: 'multiple-choice',
+    questionMath: '<mtext>En F-faktor på</mtext><mo> </mo><mn>0</mn><mo>,</mo><mn>98</mn><mo> </mo><mtext>motsvarar en:</mtext>',
+    options: [
+        { value: '2% ökning', label: '<mn>2</mn><mo>%</mo><mo> </mo><mtext>ökning</mtext>' },
+        { value: '2% minskning', label: '<mn>2</mn><mo>%</mo><mo> </mo><mtext>minskning</mtext>' }, // Korrekt
+        { value: '98% minskning', label: '<mn>98</mn><mo>%</mo><mo> </mo><mtext>minskning</mtext>' },
+    ],
+    correctAnswer: '2% minskning',
+    correctDisplay: '<mn>2</mn><mo>%</mo><mo> </mo><mtext>minskning</mtext>',
+    hint: '<mtext>Minskning:</mtext><mo> </mo><mn>1</mn><mo>-</mo><mn>0</mn><mo>,</mo><mn>98</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>02</mn><mo>.</mo>',
+},
+
+// --- AVANCERAD F-FAKTOR (ID 35–38) ---
+{
+    id: 35,
+    type: 'free-text',
+    questionMath: '<mtext>En aktie ökar först med</mtext><mo> </mo><mn>10</mn><mo>%</mo><mo> </mo><mtext>och sedan med</mtext><mo> </mo><mn>5</mn><mo>%</mo><mo>.</mo><mo> </mo><mtext>Vad är den totala F-faktorn?</mtext>',
+    correctAnswer: '1.155',
+    correctDisplay: '<mn>1</mn><mo>,</mo><mn>155</mn>',
+    hint: '<mtext>Multiplicera de enskilda F-faktorerna:</mtext><mo> </mo><mo>(</mo><mn>1</mn><mo>,</mo><mn>10</mn><mo>)</mo><mo>·</mo><mo>(</mo><mn>1</mn><mo>,</mo><mn>05</mn><mo>)</mo><mo>.</mo>',
+},
+{
+    id: 36,
+    type: 'free-text',
+    questionMath: '<mtext>En bil minskar i värde med</mtext><mo> </mo><mn>10</mn><mo>%</mo><mo> </mo><mtext>per år.</mtext><mo> </mo><mtext>Vad är den totala F-faktorn efter</mtext><mo> </mo><mn>3</mn><mo> </mo><mtext>år?</mtext>',
+    correctAnswer: '0.729',
+    correctDisplay: '<mn>0</mn><mo>,</mo><mn>729</mn>',
+    hint: '<mtext>Använd potenser:</mtext><mo> </mo><msup><mrow><mo>(</mo><mn>1</mn><mo>-</mo><mn>0</mn><mo>,</mo><mn>10</mn><mo>)</mo></mrow><mn>3</mn></msup><mo>.</mo>',
+},
+{
+    id: 37,
+    type: 'free-text',
+    questionMath: '<mtext>En vara kostar</mtext><mo> </mo><mn>440</mn><mo> </mo><mtext>kr efter en ökning med</mtext><mo> </mo><mn>10</mn><mo>%</mo><mo>.</mo><mo> </mo><mtext>Vad kostade varan ursprungligen (</mtext><mi>x</mi><mtext>)?</mtext>',
+    correctAnswer: '400',
+    correctDisplay: '<mn>400</mn><mo> </mo><mtext>kr</mtext>',
+    hint: '<mtext>Ställ upp ekvationen:</mtext><mo> </mo><mi>x</mi><mo>·</mo><mn>1</mn><mo>,</mo><mn>10</mn><mo>=</mo><mn>440</mn><mo>.</mo>',
+},
+{
+    id: 38,
+    type: 'multiple-choice',
+    questionMath: '<mtext>En total F-faktor på</mtext><mo> </mo><mn>1</mn><mo>,</mo><mn>21</mn><mo> </mo><mtext>kan beskrivas som en total ökning med:</mtext>',
+    options: [
+        { value: '21%', label: '<mn>21</mn><mo>%</mo>' }, // Korrekt
+        { value: '121%', label: '<mn>121</mn><mo>%</mo>' },
+        { value: '1.21%', label: '<mn>1</mn><mo>,</mo><mn>21</mn><mo>%</mo>' },
+    ],
+    correctAnswer: '21%',
+    correctDisplay: '<mn>21</mn><mo>%</mo>',
+    hint: '<mtext>Total F-faktor</mtext><mo>-</mo><mn>1</mn><mo> </mo><mtext>ger ökningen i decimalform:</mtext><mo> </mo><mn>1</mn><mo>,</mo><mn>21</mn><mo>-</mo><mn>1</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>21</mn><mo>.</mo>',
+},
+
+// --- POTENSLAGAR FORTSÄTTNING (ID 39–41) ---
+{
+    id: 39,
+    type: 'free-text',
+    questionMath: '<mfrac><msup><mn>7</mn><mn>10</mn></msup><msup><mn>7</mn><mn>6</mn></msup></mfrac>',
+    correctAnswer: '7^4',
+    correctDisplay: '<msup><mn>7</mn><mn>4</mn></msup>',
+    hint: '<mtext>Använd divisionsregeln:</mtext><mo> </mo><mn>10</mn><mo>-</mo><mn>6</mn><mo>.</mo>',
+},
+{
+    id: 40,
+    type: 'free-text',
+    questionMath: '<msup><mi>a</mi><mn>0</mn></msup><mo>+</mo><msup><mn>10</mn><mn>1</mn></msup>',
+    correctAnswer: '11',
+    correctDisplay: '<mn>11</mn>',
+    hint: '<mtext>Kom ihåg att</mtext><mo> </mo><msup><mi>a</mi><mn>0</mn></msup><mo>=</mo><mn>1</mn><mo>.</mo><mo> </mo><mtext>Addera sedan</mtext><mo> </mo><mn>10</mn><mo>.</mo>',
+},
+{
+    id: 41,
+    type: 'free-text',
+    questionMath: '<msup><mrow><mo>(</mo><msup><mi>b</mi><mrow><mo>-</mo><mn>2</mn></mrow></msup><mo>)</mo></mrow><mn>4</mn></msup>',
+    correctAnswer: 'b^-8',
+    correctDisplay: '<msup><mi>b</mi><mrow><mo>-</mo><mn>8</mn></mrow></msup>',
+    hint: '<mtext>Använd Potens av Potens-regeln:</mtext><mo> </mo><mo>(</mo><mo>-</mo><mn>2</mn><mo>)</mo><mo>·</mo><mn>4</mn><mo>.</mo>',
+},
+
+// --- TILLÄMPAD F-FAKTOR (ID 42–44) ---
+{
+    id: 42,
+    type: 'free-text',
+    questionMath: '<mtext>Ett värde minskar med</mtext><mo> </mo><mn>5</mn><mo>%</mo><mo> </mo><mtext>och sedan med ytterligare</mtext><mo> </mo><mn>10</mn><mo>%</mo><mo>.</mo><mo> </mo><mtext>Vad är den totala minskningen i procent?</mtext>',
+    correctAnswer: '14.5%',
+    correctDisplay: '<mn>14</mn><mo>,</mo><mn>5</mn><mo>%</mo>',
+    hint: '<mtext>Total F-faktor:</mtext><mo> </mo><mn>0</mn><mo>,</mo><mn>95</mn><mo>·</mo><mn>0</mn><mo>,</mo><mn>90</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>855</mn><mo>.</mo><mo> </mo><mtext>Minskningen är</mtext><mo> </mo><mn>1</mn><mo>-</mo><mn>0</mn><mo>,</mo><mn>855</mn><mo>.</mo>',
+},
+{
+    id: 43,
+    type: 'free-text',
+    questionMath: '<mtext>En akties värde har tredubblats</mtext><mo> </mo><mo>(</mo><mo>×</mo><mn>3</mn><mo>)</mo><mo>.</mo><mo> </mo><mtext>Hur stor är den procentuella ökningen?</mtext>',
+    correctAnswer: '200%',
+    correctDisplay: '<mn>200</mn><mo>%</mo>',
+    hint: '<mtext>F-faktorn är</mtext><mo> </mo><mn>3</mn><mo>.</mo><mo> </mo><mtext>Ökningen i decimalform är</mtext><mo> </mo><mn>3</mn><mo>-</mo><mn>1</mn><mo>=</mo><mn>2</mn><mo>.</mo>',
+},
+{
+    id: 44,
+    type: 'free-text',
+    questionMath: '<mtext>En dator minskar med</mtext><mo> </mo><mn>20</mn><mo>%</mo><mo> </mo><mtext>per år.</mtext><mo> </mo><mtext>Om datorn kostar</mtext><mo> </mo><mn>10000</mn><mo> </mo><mtext>kr, vad kostar den efter</mtext><mo> </mo><mn>2</mn><mo> </mo><mtext>år?</mtext>',
+    correctAnswer: '6400',
+    correctDisplay: '<mn>6400</mn><mo> </mo><mtext>kr</mtext>',
+    hint: '<mtext>Använd potenser:</mtext><mo> </mo><mn>10000</mn><mo>·</mo><msup><mrow><mo>(</mo><mn>0</mn><mo>,</mo><mn>80</mn><mo>)</mo></mrow><mn>2</mn></msup><mo>.</mo>',
+},
+
+// --- NYA FRÅGOR (ID 45–54): Negativa Exponenter & Grundpotensform ---
+
+// NEGATIVA EXPONENTER
+{
+    id: 45,
+    type: 'free-text',
+    questionMath: '<msup><mn>2</mn><mrow><mo>-</mo><mn>3</mn></mrow></msup>',
+    correctAnswer: '1/8',
+    correctDisplay: '<mfrac><mn>1</mn><mn>8</mn></mfrac>',
+    hint: '<mtext>Använd regeln för negativ exponent:</mtext><mo> </mo><msup><mn>2</mn><mrow><mo>-</mo><mn>3</mn></mrow></msup><mo>=</mo><mfrac><mn>1</mn><msup><mn>2</mn><mn>3</mn></msup></mfrac><mo>.</mo>',
+},
+{
+    id: 46,
+    type: 'free-text',
+    questionMath: '<mfrac><msup><mi>x</mi><mn>3</mn></msup><msup><mi>x</mi><mn>5</mn></msup></mfrac>',
+    correctAnswer: 'x^-2',
+    correctDisplay: '<msup><mi>x</mi><mrow><mo>-</mo><mn>2</mn></mrow></msup>',
+    hint: '<mtext>Använd divisionsregeln:</mtext><mo> </mo><mn>3</mn><mo>-</mo><mn>5</mn><mo>=</mo><mo>-</mo><mn>2</mn><mo>.</mo>',
+},
+{
+    id: 47,
+    type: 'free-text',
+    questionMath: '<msup><mrow><mo>(</mo><mfrac><mn>1</mn><mn>4</mn></mfrac><mo>)</mo></mrow><mrow><mo>-</mo><mn>2</mn></mrow></msup>',
+    correctAnswer: '16',
+    correctDisplay: '<mn>16</mn>',
+    hint: '<mtext>Vänd bråket och höj upp till positiv exponent:</mtext><mo> </mo><msup><mn>4</mn><mn>2</mn></msup><mo>.</mo>',
+},
+
+// GRUNDPOTENSFORM
+{
+    id: 48,
+    type: 'free-text',
+    questionMath: '<mtext>Skriv</mtext><mo> </mo><mn>720</mn><mo> </mo><mn>000</mn><mo> </mo><mtext>i grundpotensform.</mtext>',
+    correctAnswer: '7.2*10^5',
+    correctDisplay: '<mn>7</mn><mo>,</mo><mn>2</mn><mo>·</mo><msup><mn>10</mn><mn>5</mn></msup>',
+    hint: '<mtext>Flytta kommatecknet</mtext><mo> </mo><mn>5</mn><mo> </mo><mtext>steg från slutet.</mtext>',
+},
+{
+    id: 49,
+    type: 'free-text',
+    questionMath: '<mtext>Skriv</mtext><mo> </mo><mn>0</mn><mo>,</mo><mn>000</mn><mo> </mo><mn>09</mn><mo> </mo><mtext>i grundpotensform.</mtext>',
+    correctAnswer: '9*10^-5',
+    correctDisplay: '<mn>9</mn><mo>·</mo><msup><mn>10</mn><mrow><mo>-</mo><mn>5</mn></mrow></msup>',
+    hint: '<mtext>Flytta kommatecknet</mtext><mo> </mo><mn>5</mn><mo> </mo><mtext>steg åt höger (negativ exponent).</mtext>',
+},
+
+// BLANDADE LAGAR
+{
+    id: 50,
+    type: 'free-text',
+    questionMath: '<msup><mn>4</mn><mn>2</mn></msup><mo>·</mo><msup><mn>2</mn><mrow><mo>-</mo><mn>3</mn></mrow></msup>',
+    correctAnswer: '2',
+    correctDisplay: '<mn>2</mn>',
+    hint: '<mtext>Skriv om</mtext><mo> </mo><mn>4</mn><mo> </mo><mtext>som</mtext><mo> </mo><msup><mn>2</mn><mn>2</mn></msup><mo>.</mo><mo> </mo><mtext>Ekvationen blir</mtext><mo> </mo><msup><mrow><mo>(</mo><msup><mn>2</mn><mn>2</mn></msup><mo>)</mo></mrow><mn>2</mn></msup><mo>·</mo><msup><mn>2</mn><mrow><mo>-</mo><mn>3</mn></mrow></msup><mo>=</mo><msup><mn>2</mn><mn>4</mn></msup><mo>·</mo><msup><mn>2</mn><mrow><mo>-</mo><mn>3</mn></mrow></msup><mo>.</mo>',
+},
+{
+    id: 51,
+    type: 'free-text',
+    questionMath: '<msup><mrow><mo>(</mo><mfrac><mi>a</mi><mi>b</mi></mfrac><mo>)</mo></mrow><mn>3</mn></msup><mo>·</mo><msup><mi>b</mi><mn>3</mn></msup>',
+    correctAnswer: 'a^3',
+    correctDisplay: '<msup><mi>a</mi><mn>3</mn></msup>',
+    hint: '<mtext>Förenkla uttrycket med Potens av Kvot-regeln först.</mtext>',
+},
+{
+    id: 52,
+    type: 'multiple-choice',
+    questionMath: '<mtext>Vad är det totala värdet av</mtext><mo> </mo><mn>2</mn><mo>·</mo><msup><mn>10</mn><mn>3</mn></msup><mo>+</mo><mn>5</mn><mo>·</mo><msup><mn>10</mn><mn>2</mn></msup><mtext>?</mtext>',
+    options: [
+        { value: '7*10^3', label: '<mn>7</mn><mo>·</mo><msup><mn>10</mn><mn>3</mn></msup>' },
+        { value: '2500', label: '<mn>2500</mn>' }, // Korrekt
+        { value: '700', label: '<mn>700</mn>' },
+    ],
+    correctAnswer: '2500',
+    correctDisplay: '<mn>2500</mn>',
+    hint: '<mtext>Räkna ut värdena separat:</mtext><mo> </mo><mn>2000</mn><mo>+</mo><mn>500</mn><mo>.</mo>',
+},
+{
+    id: 53,
+    type: 'free-text',
+    questionMath: '<mtext>En kommun har</mtext><mo> </mo><mn>25000</mn><mo> </mo><mtext>invånare.</mtext><mo> </mo><mtext>Om befolkningen ökar med</mtext><mo> </mo><mn>2</mn><mo>%</mo><mo> </mo><mtext>per år, hur många bor där efter</mtext><mo> </mo><mn>10</mn><mo> </mo><mtext>år?</mtext>',
+    correctAnswer: '30475',
+    correctDisplay: '<mn>30</mn><mo> </mo><mn>475</mn>',
+    hint: '<mtext>Använd F-faktorn i en exponentialekvation:</mtext><mo> </mo><mn>25000</mn><mo>·</mo><msup><mrow><mo>(</mo><mn>1</mn><mo>,</mo><mn>02</mn><mo>)</mo></mrow><mn>10</mn></msup><mo>.</mo>',
+},
+{
+    id: 54,
+    type: 'free-text',
+    questionMath: '<mroot><msup><mi>x</mi><mn>6</mn></msup><mn>3</mn></mroot>',
+    correctAnswer: 'x^2',
+    correctDisplay: '<msup><mi>x</mi><mn>2</mn></msup>',
+    hint: '<mtext>Skriv om som potens med bråkexponent:</mtext><mo> </mo><msup><mi>x</mi><mfrac><mn>6</mn><mn>3</mn></mfrac></msup><mo>.</mo>',
+}
 ];
+
+
+
 
 // --- Components ---
 
@@ -800,7 +1153,11 @@ const App: React.FC = () => {
   // Dela upp frågorna
   const potensQuestions = quizQuestions.slice(0, 4);
   const rotQuestions = quizQuestions.slice(4);
-    const advancedQuestions = quizQuestions.slice(8);
+  const advancedQuestions = quizQuestions.slice(8);
+  const fFactorQuestions = quizQuestions.slice(16);
+  const negativeExponentQuestions = quizQuestions.slice(20);
+  const scientificNotationQuestions = quizQuestions.slice(24);
+  const mixedLawQuestions = quizQuestions.slice(26);
 
  useEffect(() => {
   // Injicerar de centraliserade stilarna i dokumenthuvudet
@@ -1052,6 +1409,234 @@ const App: React.FC = () => {
     onChange={handleChange}
     onSubmit={handleSubmit}
 />
+
+<LawSection
+    title="8. Förändringsfaktor (F-faktor)"
+    // Konverterad till MathML: Kvot (division)
+    lawMath='<mtext>F-faktor</mtext><mo>=</mo><mfrac><mtext>Nya värdet</mtext><mtext>Gamla värdet</mtext></mfrac>'
+    rule={<>{renderTeXInline('Förändringsfaktorn är talet du multiplicerar det **gamla värdet** med för att få det **nya värdet**. Den är nyckeln för att räkna på procentuella förändringar, särskilt upprepade sådana.')}</>}
+    memo='Minnesregel: F-faktor ger det Nya Värdet direkt!'
+    examples={[
+        // Nu en enkel array av MathML-strängar:
+        '<mtext>10% ökning</mtext><mo>⇒</mo><mtext>F-faktor</mtext><mo>=</mo><mn>1</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>10</mn><mo>=</mo><mn>1</mn><mo>,</mo><mn>10</mn>',
+        '<mtext>25% minskning</mtext><mo>⇒</mo><mtext>F-faktor</mtext><mo>=</mo><mn>1</mn><mo>-</mo><mn>0</mn><mo>,</mo><mn>25</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>75</mn>',
+        '<mn>200</mn><mo> </mo><mtext>kr</mtext><mo>·</mo><mn>1</mn><mo>,</mo><mn>50</mn><mo>=</mo><mn>300</mn><mo> </mo><mtext>kr</mtext><mo> </mo><mo>(</mo><mtext>50% ökning</mtext><mo>)</mo>',
+    ]}
+/>
+
+<QuizBlock
+    questions={fFactorQuestions}
+    title="Quiz: F-faktor & Procentuell Förändring (Frågor 17–20)"
+    allQuestions={quizQuestions}
+    answers={answers}
+    onChange={handleChange}
+    onSubmit={handleSubmit}
+/>
+
+<LawSection
+    title="9. Multiplikation av Potenser"
+    lawMath='<msup><mi>a</mi><mi>x</mi></msup><mo>⋅</mo><msup><mi>a</mi><mi>y</mi></msup><mo>=</mo><msup><mi>a</mi><mrow><mi>x</mi><mo>+</mo><mi>y</mi></mrow></msup>'
+    rule={<>{renderTeXInline('När du multiplicerar potenser med **samma bas**, adderar du exponenterna.')}</>}
+    memo='Minnesregel: Gånger blir Plus i taket'
+    examples={[
+        '<msup><mn>5</mn><mn>3</mn></msup><mo>⋅</mo><msup><mn>5</mn><mn>4</mn></msup><mo>=</mo><msup><mn>5</mn><mrow><mn>3</mn><mo>+</mo><mn>4</mn></mrow></msup><mo>=</mo><msup><mn>5</mn><mn>7</mn></msup>',
+        '<msup><mi>x</mi><mn>2</mn></msup><mo>⋅</mo><mi>x</mi><mo>=</mo><msup><mi>x</mi><mrow><mn>2</mn><mo>+</mo><mn>1</mn></mrow></msup><mo>=</mo><msup><mi>x</mi><mn>3</mn></msup>',
+    ]}
+/>
+
+
+<LawSection
+    title="10. Division av Potenser"
+    lawMath='<mfrac><msup><mi>a</mi><mi>x</mi></msup><msup><mi>a</mi><mi>y</mi></msup></mfrac><mo>=</mo><msup><mi>a</mi><mrow><mi>x</mi><mo>-</mo><mi>y</mi></mrow></msup>'
+    rule={<>{renderTeXInline('När du dividerar potenser med **samma bas**, subtraherar du exponenterna.')}</>}
+    memo='Minnesregel: Delat blir Minus i taket'
+    examples={[
+        '<mfrac><msup><mn>2</mn><mn>9</mn></msup><msup><mn>2</mn><mn>3</mn></msup></mfrac><mo>=</mo><msup><mn>2</mn><mrow><mn>9</mn><mo>-</mo><mn>3</mn></mrow></msup><mo>=</mo><msup><mn>2</mn><mn>6</mn></msup>',
+        '<mfrac><msup><mi>a</mi><mn>5</mn></msup><msup><mi>a</mi><mn>5</mn></msup></mfrac><mo>=</mo><msup><mi>a</mi><mrow><mn>5</mn><mo>-</mo><mn>5</mn></mrow></msup><mo>=</mo><msup><mi>a</mi><mn>0</mn></msup><mo>=</mo><mn>1</mn>',
+    ]}
+/>
+
+<LawSection
+    title="11. Potens av Potens"
+    lawMath='<msup><mrow><mo>(</mo><msup><mi>a</mi><mi>x</mi></msup><mo>)</mo></mrow><mi>y</mi></msup><mo>=</mo><msup><mi>a</mi><mrow><mi>x</mi><mo>⋅</mo><mi>y</mi></mrow></msup>'
+    rule={<>{renderTeXInline('När du höjer upp en potens med en ny exponent, **multiplicerar** du exponenterna.')}</>}
+    memo='Minnesregel: Två tak blir Gånger i taket'
+    examples={[
+        '<msup><mrow><mo>(</mo><msup><mn>3</mn><mn>2</mn></msup><mo>)</mo></mrow><mn>3</mn></msup><mo>=</mo><msup><mn>3</mn><mrow><mn>2</mn><mo>⋅</mo><mn>3</mn></mrow></msup><mo>=</mo><msup><mn>3</mn><mn>6</mn></msup>',
+        '<msup><mrow><mo>(</mo><msup><mi>y</mi><mn>4</mn></msup><mo>)</mo></mrow><mrow><mo>-</mo><mn>2</mn></mrow></msup><mo>=</mo><msup><mi>y</mi><mrow><mn>4</mn><mo>⋅</mo><mo>(</mo><mo>-</mo><mn>2</mn><mo>)</mo></mrow></msup><mo>=</mo><msup><mi>y</mi><mrow><mo>-</mo><mn>8</mn></mrow></msup>',
+    ]}
+/>
+
+<LawSection
+    title="12. Negativa Exponenter"
+    lawMath='<msup><mi>a</mi><mrow><mo>-</mo><mi>x</mi></mrow></msup><mo>=</mo><mfrac><mn>1</mn><msup><mi>a</mi><mi>x</mi></msup></mfrac>'
+    rule={<>{renderTeXInline('En potens med en **negativ exponent** kan skrivas om som ett bråk där potensen flyttas till nämnaren (och exponenten blir positiv).')}</>}
+    memo='Minnesregel: Minus flyttar potensen ner i källaren.'
+    examples={[
+        '<msup><mn>5</mn><mrow><mo>-</mo><mn>2</mn></mrow></msup><mo>=</mo><mfrac><mn>1</mn><msup><mn>5</mn><mn>2</mn></msup></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>25</mn></mfrac>',
+        '<mfrac><mn>1</mn><msup><mi>x</mi><mrow><mo>-</mo><mn>3</mn></mrow></msup></mfrac><mo>=</mo><msup><mi>x</mi><mn>3</mn></msup>',
+        '<msup><mrow><mo>(</mo><mfrac><mn>2</mn><mn>3</mn></mfrac><mo>)</mo></mrow><mrow><mo>-</mo><mn>1</mn></mrow></msup><mo>=</mo><mfrac><mn>3</mn><mn>2</mn></mfrac>',
+    ]}
+/>
+
+<LawSection
+    title="13. Potens av Produkt & Kvot"
+    lawMath='<msup><mrow><mo>(</mo><mi>a</mi><mo>⋅</mo><mi>b</mi><mo>)</mo></mrow><mi>x</mi></msup><mo>=</mo><msup><mi>a</mi><mi>x</mi></msup><mo>⋅</mo><msup><mi>b</mi><mi>x</mi></msup><mspace width="1em"></mspace><mtext>och</mtext><mspace width="1em"></mspace><msup><mrow><mo>(</mo><mfrac><mi>a</mi><mi>b</mi></mfrac><mo>)</mo></mrow><mi>x</mi></msup><mo>=</mo><mfrac><msup><mi>a</mi><mi>x</mi></msup><msup><mi>b</mi><mi>x</mi></msup></mfrac>'
+    rule={<>{renderTeXInline('När en produkt (gånger) eller en kvot (delat) är innesluten i en parentes och upphöjd till en exponent, får **alla faktorer** inuti parentesen den exponenten.')}</>}
+    memo='Minnesregel: Exponenten sprids till allt inuti parentesen.'
+    examples={[
+        '<msup><mrow><mo>(</mo><mn>2</mn><mo>⋅</mo><mi>x</mi><mo>)</mo></mrow><mn>3</mn></msup><mo>=</mo><msup><mn>2</mn><mn>3</mn></msup><mo>⋅</mo><msup><mi>x</mi><mn>3</mn></msup><mo>=</mo><mn>8</mn><msup><mi>x</mi><mn>3</mn></msup>',
+        '<msup><mrow><mo>(</mo><mfrac><mi>y</mi><mn>5</mn></mfrac><mo>)</mo></mrow><mn>2</mn></msup><mo>=</mo><mfrac><msup><mi>y</mi><mn>2</mn></msup><msup><mn>5</mn><mn>2</mn></msup></mfrac><mo>=</mo><mfrac><msup><mi>y</mi><mn>2</mn></msup><mn>25</mn></mfrac>',
+    ]}
+/>
+
+<LawSection
+    title="14. Grundpotensform"
+    lawMath='<mi>a</mi><mo>⋅</mo><msup><mn>10</mn><mi>n</mi></msup><mo>,</mo><mspace width="1em"></mspace><mtext>där</mtext><mspace width="1em"></mspace><mn>1</mn><mo>≤</mo><mi>a</mi><mo>&lt;</mo><mn>10</mn><mspace width="1em"></mspace><mtext>och</mtext><mspace width="1em"></mspace><mi>n</mi><mo>∈</mo><mi mathvariant="double-struck">Z</mi>'
+    rule={<>{renderTeXInline('Ett tal skrivs i grundpotensform genom att det uttrycks som en produkt av ett tal ($a$) mellan $1$ och $10$ (inklusive $1$) och en tiopotens ($10^n$).')}</>}
+    memo='Minnesregel: Sätt kommatecknet efter första siffran och räkna antalet steg till originalplatsen.'
+    examples={[
+        '<mn>3</mn><mo> </mo><mn>500</mn><mo> </mo><mn>000</mn><mo>=</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo>⋅</mo><msup><mn>10</mn><mn>6</mn></msup>',
+        '<mn>0</mn><mo>,</mo><mn>000042</mn><mo>=</mo><mn>4</mn><mo>,</mo><mn>2</mn><mo>⋅</mo><msup><mn>10</mn><mrow><mo>-</mo><mn>5</mn></mrow></msup>',
+        '<mn>100</mn><mo>=</mo><mn>1</mn><mo>⋅</mo><msup><mn>10</mn><mn>2</mn></msup>',
+    ]}
+/>
+
+
+
+<LawSection
+    title="8. Förändringsfaktor (F-faktor)"
+    lawMath='<mtext>F-faktor</mtext><mo>=</mo><mfrac><mtext>Nya värdet</mtext><mtext>Gamla värdet</mtext></mfrac>'
+    rule={<>{renderTeXInline('Förändringsfaktorn är talet du multiplicerar det **gamla värdet** med för att få det **nya värdet**. Den är nyckeln för att räkna på procentuella förändringar, särskilt upprepade sådana.')}</>}
+    memo='Minnesregel: F-faktor ger det Nya Värdet direkt!'
+    examples={[
+        '<mtext>10% ökning</mtext><mo>⇒</mo><mtext>F-faktor</mtext><mo>=</mo><mn>1</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>10</mn><mo>=</mo><mn>1</mn><mo>,</mo><mn>10</mn>',
+        '<mtext>25% minskning</mtext><mo>⇒</mo><mtext>F-faktor</mtext><mo>=</mo><mn>1</mn><mo>-</mo><mn>0</mn><mo>,</mo><mn>25</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>75</mn>',
+    ]}
+/>
+
+<LawSection
+    title="9. Multiplikation av Potenser"
+    lawMath='<msup><mi>a</mi><mi>x</mi></msup><mo>⋅</mo><msup><mi>a</mi><mi>y</mi></msup><mo>=</mo><msup><mi>a</mi><mrow><mi>x</mi><mo>+</mo><mi>y</mi></mrow></msup>'
+    rule={<>{renderTeXInline('När du multiplicerar potenser med **samma bas**, adderar du exponenterna.')}</>}
+    memo='Minnesregel: Gånger blir Plus i taket'
+    examples={[
+        '<msup><mn>5</mn><mn>3</mn></msup><mo>⋅</mo><msup><mn>5</mn><mn>4</mn></msup><mo>=</mo><msup><mn>5</mn><mrow><mn>3</mn><mo>+</mo><mn>4</mn></mrow></msup><mo>=</mo><msup><mn>5</mn><mn>7</mn></msup>',
+        '<msup><mi>x</mi><mn>2</mn></msup><mo>⋅</mo><mi>x</mi><mo>=</mo><msup><mi>x</mi><mrow><mn>2</mn><mo>+</mo><mn>1</mn></mrow></msup><mo>=</mo><msup><mi>x</mi><mn>3</mn></msup>',
+    ]}
+/>
+
+<LawSection
+    title="10. Division av Potenser"
+    lawMath='<mfrac><msup><mi>a</mi><mi>x</mi></msup><msup><mi>a</mi><mi>y</mi></msup></mfrac><mo>=</mo><msup><mi>a</mi><mrow><mi>x</mi><mo>-</mo><mi>y</mi></mrow></msup>'
+    rule={<>{renderTeXInline('När du dividerar potenser med **samma bas**, subtraherar du exponenterna.')}</>}
+    memo='Minnesregel: Delat blir Minus i taket'
+    examples={[
+        '<mfrac><msup><mn>2</mn><mn>9</mn></msup><msup><mn>2</mn><mn>3</mn></msup></mfrac><mo>=</mo><msup><mn>2</mn><mrow><mn>9</mn><mo>-</mo><mn>3</mn></mrow></msup><mo>=</mo><msup><mn>2</mn><mn>6</mn></msup>',
+        '<mfrac><msup><mi>a</mi><mn>5</mn></msup><msup><mi>a</mi><mn>5</mn></msup></mfrac><mo>=</mo><msup><mi>a</mi><mrow><mn>5</mn><mo>-</mo><mn>5</mn></mrow></msup><mo>=</mo><msup><mi>a</mi><mn>0</mn></msup><mo>=</mo><mn>1</mn>',
+    ]}
+/>
+
+<LawSection
+    title="11. Potens av Potens"
+    lawMath='<msup><mrow><mo>(</mo><msup><mi>a</mi><mi>x</mi></msup><mo>)</mo></mrow><mi>y</mi></msup><mo>=</mo><msup><mi>a</mi><mrow><mi>x</mi><mo>⋅</mo><mi>y</mi></mrow></msup>'
+    rule={<>{renderTeXInline('När du höjer upp en potens med en ny exponent, **multiplicerar** du exponenterna.')}</>}
+    memo='Minnesregel: Två tak blir Gånger i taket'
+    examples={[
+        '<msup><mrow><mo>(</mo><msup><mn>3</mn><mn>2</mn></msup><mo>)</mo></mrow><mn>3</mn></msup><mo>=</mo><msup><mn>3</mn><mrow><mn>2</mn><mo>⋅</mo><mn>3</mn></mrow></msup><mo>=</mo><msup><mn>3</mn><mn>6</mn></msup>',
+        '<msup><mrow><mo>(</mo><msup><mi>y</mi><mn>4</mn></msup><mo>)</mo></mrow><mrow><mo>-</mo><mn>2</mn></mrow></msup><mo>=</mo><msup><mi>y</mi><mrow><mn>4</mn><mo>⋅</mo><mo>(</mo><mo>-</mo><mn>2</mn><mo>)</mo></mrow></msup><mo>=</mo><msup><mi>y</mi><mrow><mo>-</mo><mn>8</mn></mrow></msup>',
+    ]}
+/>
+
+<LawSection
+    title="12. Negativa Exponenter"
+    lawMath='<msup><mi>a</mi><mrow><mo>-</mo><mi>x</mi></mrow></msup><mo>=</mo><mfrac><mn>1</mn><msup><mi>a</mi><mi>x</mi></msup></mfrac>'
+    rule={<>{renderTeXInline('En potens med en **negativ exponent** kan skrivas om som ett bråk där potensen flyttas till nämnaren (och exponenten blir positiv).')}</>}
+    memo='Minnesregel: Minus flyttar potensen ner i källaren.'
+    examples={[
+        '<msup><mn>5</mn><mrow><mo>-</mo><mn>2</mn></mrow></msup><mo>=</mo><mfrac><mn>1</mn><msup><mn>5</mn><mn>2</mn></msup></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>25</mn></mfrac>',
+        '<mfrac><mn>1</mn><msup><mi>x</mi><mrow><mo>-</mo><mn>3</mn></mrow></msup></mfrac><mo>=</mo><msup><mi>x</mi><mn>3</mn></msup>',
+        '<msup><mrow><mo>(</mo><mfrac><mn>2</mn><mn>3</mn></mfrac><mo>)</mo></mrow><mrow><mo>-</mo><mn>1</mn></mrow></msup><mo>=</mo><mfrac><mn>3</mn><mn>2</mn></mfrac>',
+    ]}
+/>
+<LawSection
+    title="13. Potens av Produkt & Kvot"
+    lawMath='<msup><mrow><mo>(</mo><mi>a</mi><mo>⋅</mo><mi>b</mi><mo>)</mo></mrow><mi>x</mi></msup><mo>=</mo><msup><mi>a</mi><mi>x</mi></msup><mo>⋅</mo><msup><mi>b</mi><mi>x</mi></msup><mspace width="1em"></mspace><mtext>och</mtext><mspace width="1em"></mspace><msup><mrow><mo>(</mo><mfrac><mi>a</mi><mi>b</mi></mfrac><mo>)</mo></mrow><mi>x</mi></msup><mo>=</mo><mfrac><msup><mi>a</mi><mi>x</mi></msup><msup><mi>b</mi><mi>x</mi></msup></mfrac>'
+    rule={<>{renderTeXInline('När en produkt (gånger) eller en kvot (delat) är innesluten i en parentes och upphöjd till en exponent, får **alla faktorer** inuti parentesen den exponenten.')}</>}
+    memo='Minnesregel: Exponenten sprids till allt inuti parentesen.'
+    examples={[
+        '<msup><mrow><mo>(</mo><mn>2</mn><mo>⋅</mo><mi>x</mi><mo>)</mo></mrow><mn>3</mn></msup><mo>=</mo><msup><mn>2</mn><mn>3</mn></msup><mo>⋅</mo><msup><mi>x</mi><mn>3</mn></msup><mo>=</mo><mn>8</mn><msup><mi>x</mi><mn>3</mn></msup>',
+        '<msup><mrow><mo>(</mo><mfrac><mi>y</mi><mn>5</mn></mfrac><mo>)</mo></mrow><mn>2</mn></msup><mo>=</mo><mfrac><msup><mi>y</mi><mn>2</mn></msup><msup><mn>5</mn><mn>2</mn></msup></mfrac><mo>=</mo><mfrac><msup><mi>y</mi><mn>2</mn></msup><mn>25</mn></mfrac>',
+    ]}
+/>
+<LawSection
+    title="14. Grundpotensform"
+    lawMath='<mi>a</mi><mo>⋅</mo><msup><mn>10</mn><mi>n</mi></msup><mo>,</mo><mspace width="1em"></mspace><mtext>där</mtext><mspace width="1em"></mspace><mn>1</mn><mo>≤</mo><mi>a</mi><mo>&lt;</mo><mn>10</mn><mspace width="1em"></mspace><mtext>och</mtext><mspace width="1em"></mspace><mi>n</mi><mo>∈</mo><mi mathvariant="double-struck">Z</mi>'
+    rule={<>{renderTeXInline('Ett tal skrivs i grundpotensform genom att det uttrycks som en produkt av ett tal ($a$) mellan $1$ och $10$ (inklusive $1$) och en tiopotens ($10^n$).')}</>}
+    memo='Minnesregel: Sätt kommatecknet efter första siffran och räkna antalet steg till originalplatsen.'
+    examples={[
+        '<mn>3</mn><mo> </mo><mn>500</mn><mo> </mo><mn>000</mn><mo>=</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo>⋅</mo><msup><mn>10</mn><mn>6</mn></msup>',
+        '<mn>0</mn><mo>,</mo><mn>000042</mn><mo>=</mo><mn>4</mn><mo>,</mo><mn>2</mn><mo>⋅</mo><msup><mn>10</mn><mrow><mo>-</mo><mn>5</mn></mrow></msup>',
+        '<mn>100</mn><mo>=</mo><mn>1</mn><mo>⋅</mo><msup><mn>10</mn><mn>2</mn></msup>',
+    ]}
+/>
+
+<LawSection
+    title="15. Exponentialfunktioner (Upprepad F-faktor)"
+    lawMath='<mi>N</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mi>C</mi><mo>⋅</mo><msup><mi>a</mi><mi>t</mi></msup>'
+    rule={<>{renderTeXInline('Denna modell beskriver hur ett värde ($N$) förändras över tid ($t$), där $C$ är **startvärdet** och $a$ är den konstanta **förändringsfaktorn** per tidsenhet.')}</>}
+    memo='Minnesregel: Nya värdet = Startvärdet × (F-faktor)^(Antal förändringar)'
+    examples={[
+        '<mtext>Värdet på en bil minskar med 10% per år.</mtext><mo>⇒</mo><mi>a</mi><mo>=</mo><mn>1</mn><mo>-</mo><mn>0</mn><mo>,</mo><mn>10</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>90</mn><mo>.</mo>',
+        '<mtext>Befolkning ökar med 2% per år.</mtext><mo>⇒</mo><mi>a</mi><mo>=</mo><mn>1</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>02</mn><mo>=</mo><mn>1</mn><mo>,</mo><mn>02</mn><mo>.</mo>',
+        '<mtext>Om priset</mtext><mo> </mo><mi>C</mi><mo> </mo><mtext>minskar under</mtext><mo> </mo><mn>3</mn><mo> </mo><mtext>år:</mtext><mo> </mo><mi>N</mi><mo>(</mo><mn>3</mn><mo>)</mo><mo>=</mo><mi>C</mi><mo>⋅</mo><msup><mrow><mo>(</mo><mn>0</mn><mo>,</mo><mn>90</mn><mo>)</mo></mrow><mn>3</mn></msup><mo>.</mo>',
+    ]}
+/>
+
+
+<LawSection
+    title="7. Rot som Potens (Länken till Potenslagarna)"
+    lawMath='<mroot><mi>a</mi><mi>n</mi></mroot><mo>=</mo><msup><mi>a</mi><mfrac><mn>1</mn><mi>n</mi></mfrac></msup><mspace width="1em"></mspace><mo>⇔</mo><mspace width="1em"></mspace><msup><mi>a</mi><mfrac><mi>p</mi><mi>q</mi></mfrac></msup><mo>=</mo><mroot><msup><mi>a</mi><mi>p</mi></msup><mi>q</mi></mroot>'
+    rule={<>{renderTeXInline('En $n$-te rot (t.ex. kvadratrot där $n=2$) kan skrivas om som en potens med en bråkexponent. Detta är nyckeln till att förstå varför Potenslagarna gäller för rötter.')}</>}
+    memo='Minnesregel: Roten blir bråk i toppen'
+    examples={[
+     '<msqrt><mn>16</mn></msqrt><mo>=</mo><msup><mn>16</mn><mfrac><mn>1</mn><mn>2</mn></mfrac></msup><mo>=</mo><mn>4</mn>',
+     '<mroot><mn>8</mn><mn>3</mn></mroot><mo>=</mo><msup><mn>8</mn><mfrac><mn>1</mn><mn>3</mn></mfrac></msup><mo>=</mo><mn>2</mn>',
+     '<msup><mi>a</mi><mfrac><mn>5</mn><mn>3</mn></mfrac></msup><mo>=</mo><mroot><msup><mi>a</mi><mn>5</mn></msup><mn>3</mn></mroot>',
+    ]}
+/>
+
+
+
+<QuizBlock
+    questions={negativeExponentQuestions}
+    title="Quiz: F-faktor & Procentuell Förändring (Frågor 17–20)"
+    allQuestions={quizQuestions}
+    answers={answers}
+    onChange={handleChange}
+    onSubmit={handleSubmit}
+/>
+
+<QuizBlock
+    questions={scientificNotationQuestions}
+    title="Quiz: F-faktor & Procentuell Förändring (Frågor 17–20)"
+    allQuestions={quizQuestions}
+    answers={answers}
+    onChange={handleChange}
+    onSubmit={handleSubmit}
+/>
+
+<QuizBlock
+    questions={mixedLawQuestions}
+    title="Quiz: F-faktor & Procentuell Förändring (Frågor 17–20)"
+    allQuestions={quizQuestions}
+    answers={answers}
+    onChange={handleChange}
+    onSubmit={handleSubmit}
+/>
+
+
+
     </div>
    </div>
 
