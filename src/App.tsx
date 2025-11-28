@@ -487,7 +487,41 @@ const App: React.FC = () => {
                         ]}
                     />
 
+                                        {/* 9a. Förändringsfaktor: definition */}
+                                        <LawSection
+                                                title="9a. Förändringsfaktor: definition"
+                                                lawMath='<mtext>ff</mtext><mo>=</mo><mfrac><mi>N</mi><mi>G</mi></mfrac>'
+                                                rule={<MathDisplay content='<mtext>ff</mtext><mo>=</mo><mfrac><mn>600</mn><mn>800</mn></mfrac><mo>=</mo><mn>0,75</mn>' />}
+                                                memo='ff = nya / gamla'
+                                                examples={[
+                                                        '<mtext>ff</mtext><mo>=</mo><mfrac><mn>600</mn><mn>800</mn></mfrac><mo>=</mo><mn>0,75</mn>',
+                                                        '<mtext>30</mtext><mo>%</mo><mtext> ökning:</mtext><mspace width="0.5em"></mspace><mtext>ff</mtext><mo>=</mo><mn>1,30</mn>'
+                                                ]}
+                                        />
 
+                                        {/* 9b. Nya värdet med ff */}
+                                        <LawSection
+                                                title="9b. Nya värdet: N = G · ff"
+                                                lawMath='<mi>N</mi><mo>=</mo><mi>G</mi><mo>·</mo><mtext>ff</mtext>'
+                                                rule={<>{renderTeXInline('För att få det nya värdet multiplicerar du det gamla med förändringsfaktorn: $N = G \\cdot \\{ff}$.')}</>}
+                                                memo='N = G · ff'
+                                                examples={[
+                                                        '<mi>N</mi><mo>=</mo><mn>5000</mn><mo>·</mo><mn>1,1</mn><mo>=</mo><mn>5500</mn>',
+                                                        '<mi>N</mi><mo>=</mo><mn>800</mn><mo>·</mo><mn>0,75</mn><mo>=</mo><mn>600</mn>'
+                                                ]}
+                                        />
+
+                                        {/* 9c. Procentuell ändring från ff */}
+                                        <LawSection
+                                            title="9c. Procentuell ändring från ff"
+                                            lawMath='<mtext>ändring i %</mtext><mo>=</mo><mo>(</mo><mtext>ff</mtext><mo>-</mo><mn>1</mn><mo>)</mo><mo>'
+                                            rule={<MathDisplay content='<mtext>ff</mtext><mo>=</mo><mn>0,75</mn><mspace width="0.75em"></mspace><mo>&#x2192;</mo><mspace width="0.75em"></mspace><mtext>ändring</mtext><mo>=</mo><mn>0,75</mn><mo>-</mo><mn>1</mn><mo>=</mo><mo>-0.25 ' />}
+                                            memo='gör om decimalen till procent -0,25 * 100 = -25%'
+                                            examples={[
+                                                '<mtext>ff</mtext><mo>=</mo><mn>0,75</mn><mo>&#x2192;</mo><mo>-</mo><mn>25</mn><mo>%</mo>',
+                                                '<mtext>ff</mtext><mo>=</mo><mn>1,30</mn><mo>&#x2192;</mo><mo>+</mo><mn>30</mn><mo>%</mo>'
+                                            ]}
+                                        />
 
                 </div>
 
